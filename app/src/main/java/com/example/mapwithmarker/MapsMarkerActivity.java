@@ -1,6 +1,7 @@
 package com.example.mapwithmarker;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +22,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+        Snackbar.make(this.findViewById(android.R.id.content)
+                , "Tap to change location, hold to save.", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -41,10 +45,10 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void onMapReady(final GoogleMap googleMap) {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng point = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(point)
+                .title("Record Location"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
@@ -52,5 +56,16 @@ public class MapsMarkerActivity extends AppCompatActivity
                 googleMap.addMarker(new MarkerOptions().position(point));
             }
         });
+        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
