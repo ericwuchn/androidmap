@@ -1,5 +1,6 @@
 package com.example.mapwithmarker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
+    public LatLng chosen_point;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,17 @@ public class MapsMarkerActivity extends AppCompatActivity
             public void onMapClick(LatLng point) {
                 googleMap.clear();
                 googleMap.addMarker(new MarkerOptions().position(point));
+                chosen_point = point;
             }
         });
         googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-
+                /*Intent save_intent = new Intent(R.layout.activity_maps,homepage.class);
+                save_intent.putExtra("lat", chosen_point.latitude); // double
+                save_intent.putExtra("lng", chosen_point.longitude); // double
+                setResult(RESULT_OK, save_intent);
+                finish();*/
             }
         });
     }
