@@ -1,6 +1,7 @@
 package com.example.mapwithmarker;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
@@ -20,6 +23,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     public LatLng chosen_point;
     public double view_lat;
     public double view_lng;
+    public ArrayList<Location> records_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,12 @@ public class MapsMarkerActivity extends AppCompatActivity
         googleMap.addMarker(new MarkerOptions().position(point)
                 .title("Record Location"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+        /*
+        for (int i = 0; i < records_map.size(); i++){
+            LatLng temp = new LatLng(records_map.get(i).getLatitude(), records_map.get(i).getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(temp));
+        }*/
+
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
