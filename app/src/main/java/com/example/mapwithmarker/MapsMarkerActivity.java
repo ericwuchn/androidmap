@@ -18,12 +18,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
     public LatLng chosen_point;
+    public double view_lat;
+    public double view_lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+        /*
+        Intent view_intent = getIntent();
+        view_intent.getDoubleExtra("lat", view_lat);
+        view_lng = view_intent.getDoubleExtra("lng", view_lng);
+        LatLng view = new LatLng(view_lat, view_lng);
+        */
         Snackbar.make(this.findViewById(android.R.id.content)
                 , "Tap to change location, hold to save.", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
@@ -48,6 +56,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
         LatLng point = new LatLng(-33.852, 151.211);
+        //LatLng point = view;
         googleMap.addMarker(new MarkerOptions().position(point)
                 .title("Record Location"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
